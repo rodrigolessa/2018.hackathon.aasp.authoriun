@@ -1,0 +1,54 @@
+<div class="content">
+  <div class="icon"><img src="./assets/search.svg" /></div>
+
+  <div class="form-group">
+    <div class="input-group mb-2">
+      <input
+        type="text"
+        [(ngModel)]="textoBusca"
+        class="form-control form-control-lg"
+        id="inlineFormInputGroup"
+        placeholder="Pesquise título de obra, descrição e etc..."
+      />
+      <div
+        class="input-group-append"
+        style="cursor: pointer;"
+        (click)="obterAnterioridade()"
+      >
+        <div class="input-group-text">
+          <img style="height: 17px;" src="./assets/search.svg" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="resultados" *ngIf="obras != null">
+    Resultados({{obras.length}}):
+    <div class="row" style="margin-top: 20px;" *ngFor="let item of obras">
+      <div class="col-sm-12" style="word-break: break-word;">
+        Título: {{ item.Titulo }}
+      </div>
+      <div class="col-sm-12" style="word-break: break-word;" *ngIf="item.Registro.length > 0">
+        Data de registro:
+        {{ item.Registro[0].SolicitadoEm | date: 'HH:mm:ss dd/MM/yyyy' }}
+      </div>
+      <div class="col-sm-12" style="word-break: break-word;" *ngIf="item.Registro.length > 0">
+          Link da blockchain:
+          <a
+            [href]="
+              'https://ropsten.etherscan.io/tx/' +
+              item.Registro[0].HashTransacao
+            "
+            target="_blank"
+            >Clique aqui</a
+          >
+        </div>
+    </div>
+  </div>
+
+  <div class="content-terms">
+    By submitting your file to Authoriun you are asking Authoriun to share your
+    submission with the security community and agree to our Terms of Service and
+    Privacy Policy. Learn more.
+  </div>
+</div>

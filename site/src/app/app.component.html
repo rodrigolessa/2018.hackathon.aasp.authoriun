@@ -1,0 +1,26 @@
+<div class="logo-header">
+  <div class="logo-img"></div>
+  <div class="logo-title">
+      Registro de Autenticidade de Obras em Blockchain e Busca de Anterioridade.​
+  </div>
+</div>
+
+<div class="content-tab">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        [ngClass]="{active: showTab == 1}"
+        href="/anterioridade"
+        >Anterioridade</a
+      >
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [ngClass]="{active: showTab == 2}" href="/registro"
+        >Registro da obra</a
+      >
+    </li>
+  </ul>
+</div>
+
+<router-outlet></router-outlet>

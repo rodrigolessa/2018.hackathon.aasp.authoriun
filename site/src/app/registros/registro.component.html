@@ -1,0 +1,171 @@
+<div class="content">
+  <div class="list-files" *ngIf="file != null || loading">
+    <ul class="list-group">
+      <li
+        style="font-size: 12px;"
+        class="list-group-item d-flex justify-content-between align-items-center"
+      >
+        {{ file.name }}
+        <span class="badge badge-primary badge-pill">{{ file.size }}</span>
+      </li>
+    </ul>
+  </div>
+
+  <div [hidden]="step != 1">
+    <div class="icon">
+      <label for="inputGroupFile01" style="cursor: pointer;">
+        <img src="./assets/file.svg" />
+      </label>
+    </div>
+
+    <input
+      hidden
+      type="file"
+      id="inputGroupFile01"
+      (change)="filesChanged($event)"
+    />
+    <label for="inputGroupFile01" style="text-align: center;">
+      <div class="btn btn-outline-primary">Selecione o arquivo</div></label
+    >
+
+    <div
+      class="btn btn-outline-primary"
+      *ngIf="ultimaObra != null"
+      (click)="visualizarObra = !visualizarObra"
+    >
+      Visualizar última obra
+    </div>
+  </div>
+
+  <div class="step-content" *ngIf="visualizarObra">
+    <div class="row">
+      <div
+        *ngIf="ultimaObra.Registro[0].Status == 1"
+        class="col-sm-12"
+        style="word-break: break-word;"
+      >
+        Transação pendente
+      </div>
+      <div class="col-sm-12" style="word-break: break-word;">
+        Título: {{ ultimaObra.Titulo }}
+      </div>
+      <div class="col-sm-12" style="word-break: break-word;">
+        Observações: {{ ultimaObra.Observacoes }}
+      </div>
+      <div class="col-sm-12" style="word-break: break-word;">
+        SHA256 do arquivo: {{ ultimaObra.Arquivo[0].SHA256 }}
+      </div>
+      <div class="col-sm-12" style="word-break: break-word;">
+        Hash da transação no blockchain:
+        {{ ultimaObra.Registro[0].HashTransacao }}
+      </div>
+      <div class="col-sm-12" style="word-break: break-word;">
+        Data de solicitação de registro:
+        {{ ultimaObra.Registro[0].SolicitadoEm | date: 'HH:mm:ss dd/MM/yyyy' }}
+      </div>
+      <div class="col-sm-12" style="word-break: break-word;">
+        Data de conclusão blockchain:
+        {{ ultimaObra.Registro[0].CriadoEm | date: 'HH:mm:ss dd/MM/yyyy' }}
+      </div>
+      <div class="col-sm-12" style="word-break: break-word;">
+        Link da blockchain:
+        <a
+          [href]="
+            'https://ropsten.etherscan.io/tx/' +
+            ultimaObra.Registro[0].HashTransacao
+          "
+          target="_blank"
+          >Clique aqui</a
+        >
+      </div>
+      <div
+        *ngIf="ultimaObra.Registro[0].Status == 2"
+        class="col-sm-12"
+        style="word-break: break-word;"
+      >
+        Link do certificado:
+        <a href="./assets/certificado.pdf" target="_blank">Clique aqui</a>
+      </div>
+      <div
+        *ngIf="ultimaObra.Registro[0].Status == 3"
+        class="col-sm-12"
+        style="word-break: break-word;"
+      >
+        Erro na transação
+      </div>
+    </div>
+  </div>
+
+  <div class="step-content" [hidden]="step != 2">
+    <div class="row" [hidden]="loading">
+      <div class="form-group col-sm-12">
+        <input
+          class="form-control"
+          type="text"
+          [(ngModel)]="obra.Titulo"
+          placeholder="Título da obra"
+        />
+      </div>
+      <div class="form-group col-sm-12">
+        <textarea
+          class="form-control"
+          [(ngModel)]="obra.Observacoes"
+          id="exampleFormControlTextarea1"
+          rows="3"
+          placeholder="Observações da obra"
+        ></textarea>
+      </div>
+      <div class="form-group col-sm-6">
+        <select class="form-control" [(ngModel)]="obra.IdGeneroObra">
+          <option value="1">Gênero da obra</option>
+          <option value="3">Artigo</option>
+          <option value="4">Autobiografia</option>
+          <option value="5">Biografia</option>
+          <option value="10">Crônica</option>
+          <option value="11">Desenho</option>
+          <option value="12">Design de Website</option>
+          <option value="25">Música</option>
+          <option value="26">Novela</option>
+          <option value="36">Outro</option>
+        </select>
+      </div>
+      <div class="form-group col-sm-6">
+        <input
+          class="form-control"
+          [(ngModel)]="obra.Paginas"
+          type="text"
+          placeholder="Número de páginas"
+        />
+      </div>
+    </div>
+    <div *ngIf="loading"><img src="./assets/loading.gif" /></div>
+  </div>
+
+  <div
+    class="btn btn-outline-primary"
+    *ngIf="file != null && !loading"
+    (click)="anterior(step)"
+  >
+    Anterior
+  </div>
+  <div
+    class="btn btn-outline-primary"
+    *ngIf="file != null && step != 2 && !loading"
+    (click)="proximo(step)"
+  >
+    Próximo
+  </div>
+  <div
+    class="btn btn-outline-primary"
+    *ngIf="step == 2 && !loading"
+    (click)="registarObra()"
+  >
+    Registrar obra
+  </div>
+
+  <div class="content-terms">
+    By submitting your file to Authoriun you are asking Authoriun to share your
+    submission with the security community and agree to our Terms of Service and
+    Privacy Policy. Learn more.
+  </div>
+</div>

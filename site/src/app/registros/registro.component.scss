@@ -1,0 +1,66 @@
+.logo-header {
+  margin: auto;
+  width: fit-content;
+  text-align: center;
+  margin-bottom: 50px;
+
+  .logo-img {
+    background: url('/assets/authoriun.png') no-repeat center;
+    background-size: contain;
+    width: 500px;
+    height: 130px;
+  }
+
+  .logo-title {
+    margin: auto;
+    max-width: 400px;
+    font-size: 14px;
+    color: #747474;
+  }
+}
+
+.content-tab {
+  width: 500px;
+  margin: auto;
+
+  li {
+    border-color: rgb(216, 216, 216);
+  }
+
+  .active {
+    background-color: #fbfbfb;
+    border-bottom-color: #fbfbfb;
+  }
+}
+
+.content {
+  margin: auto;
+  width: 500px;
+  min-height: 200px;
+  background-color: #fbfbfb;
+  border: 1px solid rgb(216, 216, 216);
+  border-top: none;
+  padding: 20px;
+  text-align: center;
+
+  .icon {
+    user-select: none;
+    text-align: center;
+    margin-bottom: 20px;
+
+    img {
+      user-select: none;
+      height: 50px;
+    }
+  }
+
+  .content-terms {
+    margin-top: 20px;
+    font-size: 8px;
+    text-align: center;
+  }
+}
+
+.step-content{
+  padding: 20px 0;
+}
